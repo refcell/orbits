@@ -1,0 +1,23 @@
+{
+  "name": "orbits",
+  "version": "1.0.0",
+  "description": "A collection of practical circuits.",
+  "main": "index.js",
+  "repository": "https://github.com/abigger87/orbits.git",
+  "author": "https://github.com/abigger87",
+  "license": "The Unlicense",
+  "private": true,
+  "scripts": {
+    "compile": "circom circuit.circom --r1cs --wasm --sym",
+    "kndrck-circom": "circom kndrck/circuit.circom -o kndrck/build/circuit.json",
+    "kndrck-snark": "snarkjs setup --protocol groth -c kndrck/build/circuit.json --pk kndrck/build/provingKey.json --vk kndrck/build/verifyingKey.json",
+    "kndrck-sol": "snarkjs generateverifier --pk kndrck/build/provingKey.json --vk kndrck/build/verifyingKey.json -v contracts/Verifier.sol",
+    "kndrck": "npm run kndrck-circom && npm run kndrck-snark && npm run kndrck-sol"
+  },
+  "dependencies": {
+    "circom": "^0.5.46",
+    "circomlib": "^2.0.3",
+    "snarkjs": "^0.4.18",
+    "websnark": "^0.0.5"
+  }
+}

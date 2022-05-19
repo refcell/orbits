@@ -1,0 +1,19 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Deps
+        run: npm install -g circom snarkjs
+
+      - name: Generate the Circuit
+        run: yarn compile
+
